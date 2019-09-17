@@ -136,6 +136,5 @@ namespace AutoSave_1c
 
         }
 
-
     }
 }
