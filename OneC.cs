@@ -30,7 +30,6 @@ namespace AutoSave_1c
             // Формирование строки подключения
             stringConnect = $"file={patch}; usr={login}; pwd={password};";
 
-
         }
 
         public string Login { get => this.login; set => this.login = value;}
