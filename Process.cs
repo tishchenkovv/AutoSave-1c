@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace AutoSave_1c
 {
-  static  class ProcessOneS 
+    static class ProcessOneS
     {
 
-        public static List<Process> GetProcess1c() 
+        public static List<Process> GetProcess1c()
         {
 
-           Process[] ThinkClient = Process.GetProcessesByName("1cv8c");
-           Process[] FatClient = Process.GetProcessesByName("1cv8");
+            Process[] ThinkClient = Process.GetProcessesByName("1cv8c");
+            Process[] FatClient = Process.GetProcessesByName("1cv8");
 
             List<Process> AllClient = new List<Process>();
 
@@ -31,7 +27,6 @@ namespace AutoSave_1c
             }
 
             return AllClient;
-
         }
 
         public static void KillProces(int[] id)
@@ -51,7 +46,7 @@ namespace AutoSave_1c
                         }
                     }
 
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         MessageBox.Show(e.Message);
                         continue;

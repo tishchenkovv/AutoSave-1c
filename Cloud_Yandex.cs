@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Diagnostics;
 
 namespace AutoSave_1c
 {
-     class Cloud_Yandex
+    class Cloud_Yandex
     {
 
         string id_yandex = string.Empty;
+        string token_yandex = string.Empty;
 
         public Cloud_Yandex() { }
 
@@ -22,7 +16,17 @@ namespace AutoSave_1c
             this.id_yandex = id_yandex;
         }
 
-        public string ID_YANDEX { get => id_yandex; set => id_yandex = value;}
+        public Cloud_Yandex(string id_yandex, string token_yandex)
+        {
+
+            this.id_yandex = id_yandex;
+            this.token_yandex = token_yandex;
+
+        }
+
+        public string ID_YANDEX { get => id_yandex; set => id_yandex = value; }
+
+        public string TOKEN_YANDEX { get => token_yandex; set => token_yandex = value; }
 
         public void CreateApp()
         {
@@ -39,7 +43,7 @@ namespace AutoSave_1c
 
         }
 
-        public  void GetToken()
+        public void GetToken()
         {
             string url = string.Format("https://oauth.yandex.ru/authorize?response_type=token&client_id={0}", id_yandex);
 
@@ -51,6 +55,27 @@ namespace AutoSave_1c
             {
                 MessageBox.Show(e.Message);
             }
+
+        }
+
+        public void TestConnect()
+        {
+
+
+            //WebRequest request = WebRequest.Create("http://www.contoso.com/default.html");
+            //try
+            //{
+
+            //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.contoso.com/default.html");
+            //    request.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
+            //    request.Method = "GET";
+            //    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            //}
+            //catch (WebException e)
+            //{
+            //    MessageBox.Show(e.Status.ToString());
+            //}
 
         }
 
@@ -74,8 +99,8 @@ namespace AutoSave_1c
             //}
 
 
-//const string clientId = "4bf7d46404fa48dda7a5138434bae682";
-//const string clientSecret = "6ccbc166f9d6465eacd8e31a210c4359";
+            //const string clientId = "4bf7d46404fa48dda7a5138434bae682";
+            //const string clientSecret = "6ccbc166f9d6465eacd8e31a210c4359";
 
 
 

@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Net;
+using System.Windows.Forms;
 
 namespace AutoSave_1c
 {
@@ -35,7 +30,7 @@ namespace AutoSave_1c
 
             SelectDataBase.Description = "Выберите каталог с базой 1с";
 
-                if (SelectDataBase.ShowDialog() == DialogResult.OK)
+            if (SelectDataBase.ShowDialog() == DialogResult.OK)
             {
                 txtDataBase.Text = SelectDataBase.SelectedPath;
             }
@@ -45,7 +40,7 @@ namespace AutoSave_1c
         private void BtnGetProcess_Click(object sender, EventArgs e)
         {
 
-            List<Process> collectionProces  = ProcessOneS.GetProcess1c();
+            List<Process> collectionProces = ProcessOneS.GetProcess1c();
 
             if (dgvPr.Rows.Count > 1)
             {
@@ -59,10 +54,10 @@ namespace AutoSave_1c
                 foreach (Process str in collectionProces)
                 {
                     var newstr = dgvPr.Rows.Add();
-                    dgvPr.Rows[newstr].Cells["id"].Value        = str.Id;
-                    dgvPr.Rows[newstr].Cells["start"].Value     = str.StartTime;
-                    dgvPr.Rows[newstr].Cells["name"].Value      = str.ProcessName;
-                    
+                    dgvPr.Rows[newstr].Cells["id"].Value = str.Id;
+                    dgvPr.Rows[newstr].Cells["start"].Value = str.StartTime;
+                    dgvPr.Rows[newstr].Cells["name"].Value = str.ProcessName;
+
                 }
             }
         }
@@ -71,13 +66,13 @@ namespace AutoSave_1c
         {
 
             int[] ID_Process = new int[dgvPr.Rows.Count];
-            int index = 0;       
+            int index = 0;
 
             foreach (DataGridViewRow row in dgvPr.Rows)
-                {
-                    ID_Process[index] = (int)row.Cells["id"].Value;
+            {
+                ID_Process[index] = (int)row.Cells["id"].Value;
                 index++;
-                }
+            }
 
             if (ID_Process.Length != 0)
             {
@@ -97,7 +92,7 @@ namespace AutoSave_1c
 
             }
 
-             oneC = new OneC(txtLogin.Text, txtPassword.Text, txtDataBase.Text, txtSaveCatalog.Text);
+            oneC = new OneC(txtLogin.Text, txtPassword.Text, txtDataBase.Text, txtSaveCatalog.Text);
 
             bool res = oneC.TestConnect();
 
@@ -148,7 +143,7 @@ namespace AutoSave_1c
 
         private void BtnCloudUpload_Click(object sender, EventArgs e)
         {
-           // Cloud_Yandex.UploadFile();
+            // Cloud_Yandex.UploadFile();
 
 
         }
@@ -182,6 +177,30 @@ namespace AutoSave_1c
                 Yandex.CreateApp();
 
             }
+
+        }
+
+        private void BtnConnectYandex_Click(object sender, EventArgs e)
+        {
+
+            if (txbTokenYandex.Text == string.Empty)
+            {
+                MessageBox.Show("Введите токен");
+                return;
+            }
+
+            if (Yandex == null)
+            {
+                Yandex = new Cloud_Yandex(txbIDYandex.Text, txbTokenYandex.Text);
+            }
+            else
+            {
+                Yandex.TOKEN_YANDEX = txbTokenYandex.Text;
+            }
+
+            //   Yandex.TestConnect();
+            WebRequest request = WebRequest.Create("https://docs.microsoft.com");
+
 
         }
     }
