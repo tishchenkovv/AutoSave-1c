@@ -14,6 +14,7 @@ namespace AutoSave_1c
     public partial class MainForm : Form
     {
         OneC oneC;
+        Cloud_Yandex Yandex;
 
         public MainForm()
         {
@@ -142,6 +143,45 @@ namespace AutoSave_1c
             }
 
             oneC.CreateBackup();
+
+        }
+
+        private void BtnCloudUpload_Click(object sender, EventArgs e)
+        {
+           // Cloud_Yandex.UploadFile();
+
+
+        }
+
+        private void BtnGetToken_Click(object sender, EventArgs e)
+        {
+
+            if (txbIDYandex.Text == string.Empty)
+            {
+                MessageBox.Show("Введите ID для получения токена");
+                return;
+            }
+
+            if (Yandex == null)
+            {
+                Yandex = new Cloud_Yandex(txbIDYandex.Text);
+            }
+            else
+            {
+                Yandex.ID_YANDEX = txbIDYandex.Text;
+            }
+            Yandex.GetToken();
+        }
+
+        private void BtnCreateAppYandex_Click(object sender, EventArgs e)
+        {
+
+            if (Yandex == null)
+            {
+                Yandex = new Cloud_Yandex();
+                Yandex.CreateApp();
+
+            }
 
         }
     }

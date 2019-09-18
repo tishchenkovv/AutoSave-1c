@@ -34,6 +34,9 @@
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSelectSaveCatalog = new System.Windows.Forms.Button();
+            this.txtSaveCatalog = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SelectFolder = new System.Windows.Forms.Button();
             this.txtDataBase = new System.Windows.Forms.TextBox();
             this.lblDataBase = new System.Windows.Forms.Label();
@@ -45,21 +48,19 @@
             this.btnGetProcess = new System.Windows.Forms.Button();
             this.btnKillProcess = new System.Windows.Forms.Button();
             this.btnCreateBackup = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnCloudUpload = new System.Windows.Forms.Button();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сброситьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectDataBase = new System.Windows.Forms.FolderBrowserDialog();
             this.grbCloudYandex = new System.Windows.Forms.GroupBox();
-            this.lblLoginYandex = new System.Windows.Forms.Label();
+            this.btnGetToken = new System.Windows.Forms.Button();
+            this.txbTokenYandex = new System.Windows.Forms.TextBox();
+            this.txbIDYandex = new System.Windows.Forms.TextBox();
             this.lblPasswordYandex = new System.Windows.Forms.Label();
-            this.txbLoginYandex = new System.Windows.Forms.TextBox();
-            this.txbPasswordYandex = new System.Windows.Forms.TextBox();
-            this.btnConectYandex = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtSaveCatalog = new System.Windows.Forms.TextBox();
-            this.btnSelectSaveCatalog = new System.Windows.Forms.Button();
+            this.lblLoginYandex = new System.Windows.Forms.Label();
+            this.btnCreateAppYandex = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPr)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -133,6 +134,32 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Авторизация 1c";
+            // 
+            // btnSelectSaveCatalog
+            // 
+            this.btnSelectSaveCatalog.Location = new System.Drawing.Point(379, 117);
+            this.btnSelectSaveCatalog.Name = "btnSelectSaveCatalog";
+            this.btnSelectSaveCatalog.Size = new System.Drawing.Size(24, 23);
+            this.btnSelectSaveCatalog.TabIndex = 10;
+            this.btnSelectSaveCatalog.Text = "...";
+            this.btnSelectSaveCatalog.UseVisualStyleBackColor = true;
+            this.btnSelectSaveCatalog.Click += new System.EventHandler(this.BtnSelectSaveCatalog_Click);
+            // 
+            // txtSaveCatalog
+            // 
+            this.txtSaveCatalog.Location = new System.Drawing.Point(91, 120);
+            this.txtSaveCatalog.Name = "txtSaveCatalog";
+            this.txtSaveCatalog.Size = new System.Drawing.Size(312, 20);
+            this.txtSaveCatalog.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 123);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Каталог сох..";
             // 
             // SelectFolder
             // 
@@ -234,14 +261,15 @@
             this.btnCreateBackup.UseVisualStyleBackColor = true;
             this.btnCreateBackup.Click += new System.EventHandler(this.BtnCreateBackup_Click);
             // 
-            // button4
+            // btnCloudUpload
             // 
-            this.button4.Location = new System.Drawing.Point(473, 532);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(183, 23);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Выгрузить в облако";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnCloudUpload.Location = new System.Drawing.Point(473, 532);
+            this.btnCloudUpload.Name = "btnCloudUpload";
+            this.btnCloudUpload.Size = new System.Drawing.Size(183, 23);
+            this.btnCloudUpload.TabIndex = 5;
+            this.btnCloudUpload.Text = "Выгрузить в облако";
+            this.btnCloudUpload.UseVisualStyleBackColor = true;
+            this.btnCloudUpload.Click += new System.EventHandler(this.BtnCloudUpload_Click);
             // 
             // MainMenu
             // 
@@ -280,9 +308,10 @@
             // 
             // grbCloudYandex
             // 
-            this.grbCloudYandex.Controls.Add(this.btnConectYandex);
-            this.grbCloudYandex.Controls.Add(this.txbPasswordYandex);
-            this.grbCloudYandex.Controls.Add(this.txbLoginYandex);
+            this.grbCloudYandex.Controls.Add(this.btnCreateAppYandex);
+            this.grbCloudYandex.Controls.Add(this.btnGetToken);
+            this.grbCloudYandex.Controls.Add(this.txbTokenYandex);
+            this.grbCloudYandex.Controls.Add(this.txbIDYandex);
             this.grbCloudYandex.Controls.Add(this.lblPasswordYandex);
             this.grbCloudYandex.Controls.Add(this.lblLoginYandex);
             this.grbCloudYandex.Location = new System.Drawing.Point(13, 425);
@@ -292,72 +321,58 @@
             this.grbCloudYandex.TabStop = false;
             this.grbCloudYandex.Text = "Яндекс";
             // 
-            // lblLoginYandex
+            // btnGetToken
             // 
-            this.lblLoginYandex.AutoSize = true;
-            this.lblLoginYandex.Location = new System.Drawing.Point(7, 30);
-            this.lblLoginYandex.Name = "lblLoginYandex";
-            this.lblLoginYandex.Size = new System.Drawing.Size(38, 13);
-            this.lblLoginYandex.TabIndex = 0;
-            this.lblLoginYandex.Text = "Логин";
+            this.btnGetToken.Location = new System.Drawing.Point(448, 54);
+            this.btnGetToken.Name = "btnGetToken";
+            this.btnGetToken.Size = new System.Drawing.Size(161, 21);
+            this.btnGetToken.TabIndex = 4;
+            this.btnGetToken.Text = "Получить токен";
+            this.btnGetToken.UseVisualStyleBackColor = true;
+            this.btnGetToken.Click += new System.EventHandler(this.BtnGetToken_Click);
+            // 
+            // txbTokenYandex
+            // 
+            this.txbTokenYandex.Location = new System.Drawing.Point(90, 55);
+            this.txbTokenYandex.Name = "txbTokenYandex";
+            this.txbTokenYandex.Size = new System.Drawing.Size(312, 20);
+            this.txbTokenYandex.TabIndex = 3;
+            // 
+            // txbIDYandex
+            // 
+            this.txbIDYandex.Location = new System.Drawing.Point(90, 22);
+            this.txbIDYandex.Name = "txbIDYandex";
+            this.txbIDYandex.Size = new System.Drawing.Size(312, 20);
+            this.txbIDYandex.TabIndex = 2;
             // 
             // lblPasswordYandex
             // 
             this.lblPasswordYandex.AutoSize = true;
             this.lblPasswordYandex.Location = new System.Drawing.Point(7, 62);
             this.lblPasswordYandex.Name = "lblPasswordYandex";
-            this.lblPasswordYandex.Size = new System.Drawing.Size(45, 13);
+            this.lblPasswordYandex.Size = new System.Drawing.Size(38, 13);
             this.lblPasswordYandex.TabIndex = 1;
-            this.lblPasswordYandex.Text = "Пароль";
+            this.lblPasswordYandex.Text = "Токен";
             // 
-            // txbLoginYandex
+            // lblLoginYandex
             // 
-            this.txbLoginYandex.Location = new System.Drawing.Point(90, 22);
-            this.txbLoginYandex.Name = "txbLoginYandex";
-            this.txbLoginYandex.Size = new System.Drawing.Size(312, 20);
-            this.txbLoginYandex.TabIndex = 2;
+            this.lblLoginYandex.AutoSize = true;
+            this.lblLoginYandex.Location = new System.Drawing.Point(7, 30);
+            this.lblLoginYandex.Name = "lblLoginYandex";
+            this.lblLoginYandex.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblLoginYandex.Size = new System.Drawing.Size(18, 13);
+            this.lblLoginYandex.TabIndex = 0;
+            this.lblLoginYandex.Text = "ID";
             // 
-            // txbPasswordYandex
+            // btnCreateAppYandex
             // 
-            this.txbPasswordYandex.Location = new System.Drawing.Point(90, 55);
-            this.txbPasswordYandex.Name = "txbPasswordYandex";
-            this.txbPasswordYandex.Size = new System.Drawing.Size(312, 20);
-            this.txbPasswordYandex.TabIndex = 3;
-            // 
-            // btnConectYandex
-            // 
-            this.btnConectYandex.Location = new System.Drawing.Point(448, 22);
-            this.btnConectYandex.Name = "btnConectYandex";
-            this.btnConectYandex.Size = new System.Drawing.Size(161, 53);
-            this.btnConectYandex.TabIndex = 4;
-            this.btnConectYandex.Text = "Проверить подключение";
-            this.btnConectYandex.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 123);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Каталог сох..";
-            // 
-            // txtSaveCatalog
-            // 
-            this.txtSaveCatalog.Location = new System.Drawing.Point(91, 120);
-            this.txtSaveCatalog.Name = "txtSaveCatalog";
-            this.txtSaveCatalog.Size = new System.Drawing.Size(312, 20);
-            this.txtSaveCatalog.TabIndex = 9;
-            // 
-            // btnSelectSaveCatalog
-            // 
-            this.btnSelectSaveCatalog.Location = new System.Drawing.Point(379, 117);
-            this.btnSelectSaveCatalog.Name = "btnSelectSaveCatalog";
-            this.btnSelectSaveCatalog.Size = new System.Drawing.Size(24, 23);
-            this.btnSelectSaveCatalog.TabIndex = 10;
-            this.btnSelectSaveCatalog.Text = "...";
-            this.btnSelectSaveCatalog.UseVisualStyleBackColor = true;
-            this.btnSelectSaveCatalog.Click += new System.EventHandler(this.BtnSelectSaveCatalog_Click);
+            this.btnCreateAppYandex.Location = new System.Drawing.Point(448, 20);
+            this.btnCreateAppYandex.Name = "btnCreateAppYandex";
+            this.btnCreateAppYandex.Size = new System.Drawing.Size(161, 23);
+            this.btnCreateAppYandex.TabIndex = 5;
+            this.btnCreateAppYandex.Text = "Регистрация приложения";
+            this.btnCreateAppYandex.UseVisualStyleBackColor = true;
+            this.btnCreateAppYandex.Click += new System.EventHandler(this.BtnCreateAppYandex_Click);
             // 
             // MainForm
             // 
@@ -365,7 +380,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 582);
             this.Controls.Add(this.grbCloudYandex);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnCloudUpload);
             this.Controls.Add(this.btnCreateBackup);
             this.Controls.Add(this.btnKillProcess);
             this.Controls.Add(this.btnGetProcess);
@@ -400,7 +415,7 @@
         private System.Windows.Forms.Button btnGetProcess;
         private System.Windows.Forms.Button btnKillProcess;
         private System.Windows.Forms.Button btnCreateBackup;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnCloudUpload;
         private System.Windows.Forms.Button btnConnect1c;
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
@@ -414,14 +429,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.GroupBox grbCloudYandex;
-        private System.Windows.Forms.Button btnConectYandex;
-        private System.Windows.Forms.TextBox txbPasswordYandex;
-        private System.Windows.Forms.TextBox txbLoginYandex;
+        private System.Windows.Forms.Button btnGetToken;
+        private System.Windows.Forms.TextBox txbTokenYandex;
+        private System.Windows.Forms.TextBox txbIDYandex;
         private System.Windows.Forms.Label lblPasswordYandex;
         private System.Windows.Forms.Label lblLoginYandex;
         private System.Windows.Forms.Button btnSelectSaveCatalog;
         private System.Windows.Forms.TextBox txtSaveCatalog;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnCreateAppYandex;
     }
 }
 

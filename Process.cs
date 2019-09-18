@@ -39,7 +39,7 @@ namespace AutoSave_1c
 
             foreach (int i in id)
             {
-                if (i is int || i != 0)
+                if (i != 0)
                 {
                     try
                     {
