@@ -177,6 +177,10 @@ namespace AutoSave_1c
                 Yandex.CreateApp();
 
             }
+            else
+            {
+                Yandex.CreateApp();
+            }
 
         }
 
@@ -199,8 +203,6 @@ namespace AutoSave_1c
             }
 
              Yandex.TestConnect();
-
-
 
         }
     }

@@ -55,13 +55,13 @@
             this.сброситьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectDataBase = new System.Windows.Forms.FolderBrowserDialog();
             this.grbCloudYandex = new System.Windows.Forms.GroupBox();
+            this.btnConnectYandex = new System.Windows.Forms.Button();
+            this.btnCreateAppYandex = new System.Windows.Forms.Button();
             this.btnGetToken = new System.Windows.Forms.Button();
             this.txbTokenYandex = new System.Windows.Forms.TextBox();
             this.txbIDYandex = new System.Windows.Forms.TextBox();
             this.lblPasswordYandex = new System.Windows.Forms.Label();
             this.lblLoginYandex = new System.Windows.Forms.Label();
-            this.btnCreateAppYandex = new System.Windows.Forms.Button();
-            this.btnConnectYandex = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPr)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -190,7 +190,7 @@
             // 
             // btnConnect1c
             // 
-            this.btnConnect1c.Location = new System.Drawing.Point(449, 36);
+            this.btnConnect1c.Location = new System.Drawing.Point(474, 32);
             this.btnConnect1c.Name = "btnConnect1c";
             this.btnConnect1c.Size = new System.Drawing.Size(161, 95);
             this.btnConnect1c.TabIndex = 4;
@@ -294,13 +294,13 @@
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
             // сброситьToolStripMenuItem
             // 
             this.сброситьToolStripMenuItem.Name = "сброситьToolStripMenuItem";
-            this.сброситьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сброситьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.сброситьToolStripMenuItem.Text = "Сбросить";
             // 
             // SelectDataBase
@@ -322,6 +322,26 @@
             this.grbCloudYandex.TabIndex = 7;
             this.grbCloudYandex.TabStop = false;
             this.grbCloudYandex.Text = "Яндекс";
+            // 
+            // btnConnectYandex
+            // 
+            this.btnConnectYandex.Location = new System.Drawing.Point(473, 76);
+            this.btnConnectYandex.Name = "btnConnectYandex";
+            this.btnConnectYandex.Size = new System.Drawing.Size(161, 23);
+            this.btnConnectYandex.TabIndex = 6;
+            this.btnConnectYandex.Text = "Проверить подключение";
+            this.btnConnectYandex.UseVisualStyleBackColor = true;
+            this.btnConnectYandex.Click += new System.EventHandler(this.BtnConnectYandex_Click);
+            // 
+            // btnCreateAppYandex
+            // 
+            this.btnCreateAppYandex.Location = new System.Drawing.Point(473, 13);
+            this.btnCreateAppYandex.Name = "btnCreateAppYandex";
+            this.btnCreateAppYandex.Size = new System.Drawing.Size(161, 23);
+            this.btnCreateAppYandex.TabIndex = 5;
+            this.btnCreateAppYandex.Text = "Регистрация приложения";
+            this.btnCreateAppYandex.UseVisualStyleBackColor = true;
+            this.btnCreateAppYandex.Click += new System.EventHandler(this.BtnCreateAppYandex_Click);
             // 
             // btnGetToken
             // 
@@ -365,26 +385,6 @@
             this.lblLoginYandex.Size = new System.Drawing.Size(18, 13);
             this.lblLoginYandex.TabIndex = 0;
             this.lblLoginYandex.Text = "ID";
-            // 
-            // btnCreateAppYandex
-            // 
-            this.btnCreateAppYandex.Location = new System.Drawing.Point(473, 13);
-            this.btnCreateAppYandex.Name = "btnCreateAppYandex";
-            this.btnCreateAppYandex.Size = new System.Drawing.Size(161, 23);
-            this.btnCreateAppYandex.TabIndex = 5;
-            this.btnCreateAppYandex.Text = "Регистрация приложения";
-            this.btnCreateAppYandex.UseVisualStyleBackColor = true;
-            this.btnCreateAppYandex.Click += new System.EventHandler(this.BtnCreateAppYandex_Click);
-            // 
-            // btnConnectYandex
-            // 
-            this.btnConnectYandex.Location = new System.Drawing.Point(473, 76);
-            this.btnConnectYandex.Name = "btnConnectYandex";
-            this.btnConnectYandex.Size = new System.Drawing.Size(161, 23);
-            this.btnConnectYandex.TabIndex = 6;
-            this.btnConnectYandex.Text = "Проверить подключение";
-            this.btnConnectYandex.UseVisualStyleBackColor = true;
-            this.btnConnectYandex.Click += new System.EventHandler(this.BtnConnectYandex_Click);
             // 
             // MainForm
             // 

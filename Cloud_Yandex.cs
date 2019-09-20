@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Net;
+using System.IO;
+using System.Web;
+using System.Web.Script.Serialization;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace AutoSave_1c
 {
@@ -62,13 +67,68 @@ namespace AutoSave_1c
         public void TestConnect()
         {
 
+            decimal totalSpaceGB    = 0;
+            decimal usedSpaceGB     = 0;
+            string account          = string.Empty;
+            byte answerServer       = 0;
+
             try
             {
-
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://cloud-api.yandex.net:443/v1/diskhttps://cloud-api.yandex.net:443/v1/disk");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://cloud-api.yandex.net/v1/disk/");
                 request.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
                 request.Method = "GET";
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+
+                   answerServer      = (byte)response.StatusCode;
+
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        using(StreamReader streamReader = new StreamReader(stream))
+                        {
+                            string reader = streamReader.ReadToEnd();
+                            dynamic array = JsonConvert.DeserializeObject(reader);
+
+                            foreach (var str in array)
+                            {
+
+                                string name = ((Newtonsoft.Json.Linq.JProperty)str).Name;
+
+                                if (name == "total_space")
+                                {
+                                    totalSpaceGB = decimal.Round((decimal)((Newtonsoft.Json.Linq.JProperty)str).Value / 1024 /1024 / 1024); 
+                                }
+
+                                if (name == "used_space")
+                                {
+                                    usedSpaceGB =   decimal.Round((decimal)((Newtonsoft.Json.Linq.JProperty)str).Value / 1024 / 1024 / 1024 ,2);
+                                }
+
+                                if (name == "user")
+                                {
+                                    foreach (var st in ((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JProperty)str).Value))
+                                    {
+                                        string nameUser = ((Newtonsoft.Json.Linq.JProperty)st).Name;
+
+                                        if (nameUser == "login")
+                                        {
+                                            account = (string)((Newtonsoft.Json.Linq.JProperty)st).Value;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+                   
+                }
+
+                string MessageResult = $" Пользователь: {account}\n Объем диска: {totalSpaceGB} GB \n Занято место: {usedSpaceGB} GB\n Ответ сервера: {answerServer}";
+                MessageBox.Show(MessageResult,"Информация",MessageBoxButtons.OK,MessageBoxIcon.Information);
 
             }
             catch (WebException e)
@@ -83,25 +143,6 @@ namespace AutoSave_1c
 
             //string dstfile = "myfile.txt";
             //string srcfile = @"C:\myfile.txt";
-
-            //string oauthToken = "AgAEA7qi591KAAXgJtRz2Q3k-EjBo5YeZC5yhOQ";
-
-            //try
-            //{
-            //   // YandexDiskRest disk = new YandexDiskRest(oauthToken);
-            //    //disk.CreateFolder("tt");
-            //}
-            //catch (Exception e)
-            //{
-            //    MessageBox.Show(e.Message);
-
-            //}
-
-
-            //const string clientId = "4bf7d46404fa48dda7a5138434bae682";
-            //const string clientSecret = "6ccbc166f9d6465eacd8e31a210c4359";
-
-
 
 
         }
