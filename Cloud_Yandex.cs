@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Net;
 
 namespace AutoSave_1c
 {
@@ -61,21 +62,19 @@ namespace AutoSave_1c
         public void TestConnect()
         {
 
+            try
+            {
 
-            //WebRequest request = WebRequest.Create("http://www.contoso.com/default.html");
-            //try
-            //{
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://cloud-api.yandex.net:443/v1/diskhttps://cloud-api.yandex.net:443/v1/disk");
+                request.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
+                request.Method = "GET";
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-            //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.contoso.com/default.html");
-            //    request.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
-            //    request.Method = "GET";
-            //    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            //}
-            //catch (WebException e)
-            //{
-            //    MessageBox.Show(e.Status.ToString());
-            //}
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show(e.Status.ToString());
+            }
 
         }
 

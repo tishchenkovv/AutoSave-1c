@@ -198,8 +198,8 @@ namespace AutoSave_1c
                 Yandex.TOKEN_YANDEX = txbTokenYandex.Text;
             }
 
-            //   Yandex.TestConnect();
-            WebRequest request = WebRequest.Create("https://docs.microsoft.com");
+             Yandex.TestConnect();
+
 
 
         }
