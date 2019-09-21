@@ -133,7 +133,7 @@ namespace AutoSave_1c
             }
             catch (WebException e)
             {
-                MessageBox.Show(e.Status.ToString());
+                MessageBox.Show(e.Message);
             }
 
         }
@@ -141,8 +141,108 @@ namespace AutoSave_1c
         public void UploadFile()
         {
 
-            //string dstfile = "myfile.txt";
-            //string srcfile = @"C:\myfile.txt";
+            string file = @"test.txt";
+            string url = $"https://cloud-api.yandex.net/v1/disk/resources/upload?path={file}&overwrite=false";
+            string answerLink = string.Empty;
+            string link = string.Empty;
+
+            try
+            {
+                // Получение пути загрузки
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
+                request.Method = "GET";
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        answerLink = (string)new StreamReader(stream).ReadToEnd();
+                    }
+
+                }
+
+                dynamic array = JsonConvert.DeserializeObject(answerLink);
+
+                foreach (var str in array)
+                {
+                    if (((Newtonsoft.Json.Linq.JProperty)str).Name == "href")
+                    {
+                        link = (string)((Newtonsoft.Json.Linq.JProperty)str).Value;
+                        break;
+                    }
+                    
+                }
+
+                if (link != string.Empty)
+                {
+
+                    try
+                    {
+
+                        String pathFile = @"C:\myfile.txt";
+                        byte[] myFile = File.ReadAllBytes(pathFile);
+
+                        // Загрузить файл
+                        HttpWebRequest requestUpload = (HttpWebRequest)WebRequest.Create(link);
+                        requestUpload.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
+                        requestUpload.ContentType = "application/binary";
+                        requestUpload.Method = "PUT";
+                        requestUpload.KeepAlive = false;
+                        requestUpload.ReadWriteTimeout = -1;
+                        requestUpload.Timeout = -1;
+                        requestUpload.AllowWriteStreamBuffering = false;
+                        requestUpload.SendChunked = false;
+                        requestUpload.ProtocolVersion = HttpVersion.Version11;
+                        requestUpload.ServicePoint.ConnectionLimit = 1;
+                        requestUpload.AllowAutoRedirect = false;
+                        requestUpload.ServicePoint.Expect100Continue = true;
+                        requestUpload.Accept = "*/*";
+                        requestUpload.ContentLength = myFile.Length;
+
+                        using (Stream tt = requestUpload.GetRequestStream())
+                        {
+
+                            tt.Write(myFile, 0, myFile.Length);
+
+                        }
+
+                    }
+                    // using (HttpWebResponse response = (HttpWebResponse)requestUpload.GetResponse())
+                    // {
+
+                    //    using (Stream stream = response.GetResponseStream())
+                    //  {
+
+                    //if (stream.CanWrite)
+                    //{
+                    //    stream.Write(myFile, 0, myFile.Length);
+                    //}
+
+
+                    //}
+
+
+                    //}
+
+
+
+                    //}
+                    catch (WebException e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
+
+                }
+
+
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
 
 
         }

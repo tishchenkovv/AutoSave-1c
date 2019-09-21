@@ -143,8 +143,24 @@ namespace AutoSave_1c
 
         private void BtnCloudUpload_Click(object sender, EventArgs e)
         {
-            // Cloud_Yandex.UploadFile();
 
+            if (Yandex != null)
+            {
+                Yandex.UploadFile();
+            }
+            else
+                if (txbIDYandex.Text != string.Empty && txbTokenYandex.Text != string.Empty)
+            {
+                Yandex = new Cloud_Yandex(txbIDYandex.Text, txbTokenYandex.Text);
+                Yandex.UploadFile();
+
+            }
+            else
+            {
+                MessageBox.Show("Не заполненны данные для яндекс диска");
+                return;
+            }
+          
 
         }
 
