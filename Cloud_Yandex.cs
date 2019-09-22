@@ -138,10 +138,9 @@ namespace AutoSave_1c
 
         }
 
-        public void UploadFile()
+        public void UploadFile(string file, string patchFile)
         {
 
-            string file = @"test.txt";
             string url = $"https://cloud-api.yandex.net/v1/disk/resources/upload?path={file}&overwrite=false";
             string answerLink = string.Empty;
             string link = string.Empty;
@@ -181,29 +180,28 @@ namespace AutoSave_1c
                     try
                     {
 
-                        String pathFile = @"C:\myfile.txt";
-                        byte[] myFile = File.ReadAllBytes(pathFile);
+                        byte[] backupDatabase = File.ReadAllBytes(patchFile);
 
                         // Загрузить файл
                         HttpWebRequest requestUpload = (HttpWebRequest)WebRequest.Create(link);
                         requestUpload.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
                         requestUpload.ContentType = "application/binary";
                         requestUpload.Method = "PUT";
-                        //requestUpload.KeepAlive = false;
-                        //requestUpload.ReadWriteTimeout = -1;
-                        //requestUpload.Timeout = -1;
-                        //requestUpload.AllowWriteStreamBuffering = false;
-                        //requestUpload.SendChunked = false;
-                        //requestUpload.ProtocolVersion = HttpVersion.Version11;
-                        //requestUpload.ServicePoint.ConnectionLimit = 1;
-                        //requestUpload.AllowAutoRedirect = false;
-                        //requestUpload.ServicePoint.Expect100Continue = true;
-                        //requestUpload.Accept = "*/*";
-                        requestUpload.ContentLength = myFile.Length;
+                        requestUpload.KeepAlive = false;
+                        requestUpload.ReadWriteTimeout = -1;
+                        requestUpload.Timeout = -1;
+                        requestUpload.AllowWriteStreamBuffering = false;
+                        requestUpload.SendChunked = false;
+                        requestUpload.ProtocolVersion = HttpVersion.Version11;
+                        requestUpload.ServicePoint.ConnectionLimit = 1;
+                        requestUpload.AllowAutoRedirect = false;
+                        requestUpload.ServicePoint.Expect100Continue = true;
+                        requestUpload.Accept = "*/*";
+                        requestUpload.ContentLength = backupDatabase.Length;
 
                         using (Stream requestStream = requestUpload.GetRequestStream())
                         {
-                            requestStream.Write(myFile, 0, myFile.Length);
+                            requestStream.Write(backupDatabase, 0, backupDatabase.Length);
                         }
 
                         // Получить ответ
@@ -234,8 +232,6 @@ namespace AutoSave_1c
             {
                 MessageBox.Show(e.Message);
             }
-
-
 
         }
 

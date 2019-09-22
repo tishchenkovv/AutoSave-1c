@@ -8,13 +8,14 @@ namespace AutoSave_1c
     class OneC
     {
 
-        string login = string.Empty;
-        string password = string.Empty;
-        string patch = string.Empty;
-        string patchDatabase = string.Empty;
-        string catalogSave = string.Empty;
-
-        string stringConnect = string.Empty;
+        string login            = string.Empty;
+        string password         = string.Empty;
+        string patch            = string.Empty;
+        string patchDatabase    = string.Empty;
+        string catalogSave      = string.Empty;
+        string nameFile         = string.Empty;
+        string patchBackup      = string.Empty;
+        string stringConnect    = string.Empty;
 
         public OneC(string login, string password, string patch, string catalogSave)
         {
@@ -36,6 +37,10 @@ namespace AutoSave_1c
 
         public string CatalogSave { get => catalogSave; set => catalogSave = value; }
 
+        public string NameFile { get => this.nameFile;}
+
+        public string PatchBackup { get => this.patchBackup; }
+
         public bool TestConnect()
         {
 
@@ -45,7 +50,8 @@ namespace AutoSave_1c
             try
             {
                 connector.Connect(stringConnect);
-                result = true;
+                result      = true;
+                connector   = null;
             }
             catch (Exception e)
             {
@@ -84,13 +90,14 @@ namespace AutoSave_1c
             }
 
             var CurrentDate = DateTime.Now;
-            string NameBackup = @"\Database_" + CurrentDate.ToString("MM/dd/yyyy") + ".dt";
-            string FullPatchBackup = catalogSave + NameBackup;
-            string patchQuote = @"" + patch + "";
-            string loginQuote = @"" + login + "";
-            string passwordQuote = @"" + password + "";
+            string NameBackup           = @"Database_" + CurrentDate.ToString("MM/dd/yyyy") + ".dt";
+            string FullPatchBackup      = catalogSave +"\\" + NameBackup;
+            string patchQuote           = @"" + patch + "";
+            string loginQuote           = @"" + login + "";
+            string passwordQuote        = @"" + password + "";
             string FullPatchBackupQuote = @"" + FullPatchBackup + "";
-            string arg = string.Empty;
+            string arg                  = string.Empty;
+
             if (passwordQuote == string.Empty)
             {
                 arg = $"CONFIG /F{patchQuote} /N {loginQuote} /DumpIB {FullPatchBackupQuote}";
@@ -121,8 +128,9 @@ namespace AutoSave_1c
                     continue;
                 }
 
+                this.nameFile       = NameBackup;
+                this.patchBackup    = FullPatchBackup;
                 MessageBox.Show("База успешно сохранена");
-
             }
             catch (Exception e)
             {

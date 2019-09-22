@@ -10,6 +10,7 @@ namespace AutoSave_1c
     {
         OneC oneC;
         Cloud_Yandex Yandex;
+        Data data;
 
         public MainForm()
         {
@@ -144,15 +145,22 @@ namespace AutoSave_1c
         private void BtnCloudUpload_Click(object sender, EventArgs e)
         {
 
+            if (oneC == null)
+            {
+                MessageBox.Show("Нет данных для выгрузки");
+                return;
+
+            }
+
             if (Yandex != null)
             {
-                Yandex.UploadFile();
+                Yandex.UploadFile(oneC.NameFile,oneC.PatchBackup);
             }
             else
                 if (txbIDYandex.Text != string.Empty && txbTokenYandex.Text != string.Empty)
             {
                 Yandex = new Cloud_Yandex(txbIDYandex.Text, txbTokenYandex.Text);
-                Yandex.UploadFile();
+                Yandex.UploadFile(oneC.NameFile,oneC.PatchBackup);
 
             }
             else
@@ -220,6 +228,26 @@ namespace AutoSave_1c
 
              Yandex.TestConnect();
 
+        }
+
+        private void СохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Data data = new Data(txtLogin.Text, txtPassword.Text, txtDataBase.Text,txtSaveCatalog.Text, txbIDYandex.Text, txbTokenYandex.Text);
+            Data.SaveToJson(data);
+        }
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            data = Data.GetSetting();
+
+            if (data != null && data is Data)
+            {
+                txtLogin.Text       = data.Login;
+                txtPassword.Text    = data.Password;
+                txtDataBase.Text    = data.Patch;
+                txtSaveCatalog.Text = data.PatchSave;
+                txbIDYandex.Text    = data.ID;
+                txbTokenYandex.Text = data.TOKEN;
+            }
         }
     }
 }
