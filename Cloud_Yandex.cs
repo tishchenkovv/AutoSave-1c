@@ -189,53 +189,45 @@ namespace AutoSave_1c
                         requestUpload.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
                         requestUpload.ContentType = "application/binary";
                         requestUpload.Method = "PUT";
-                        requestUpload.KeepAlive = false;
-                        requestUpload.ReadWriteTimeout = -1;
-                        requestUpload.Timeout = -1;
-                        requestUpload.AllowWriteStreamBuffering = false;
-                        requestUpload.SendChunked = false;
-                        requestUpload.ProtocolVersion = HttpVersion.Version11;
-                        requestUpload.ServicePoint.ConnectionLimit = 1;
-                        requestUpload.AllowAutoRedirect = false;
-                        requestUpload.ServicePoint.Expect100Continue = true;
-                        requestUpload.Accept = "*/*";
+                        //requestUpload.KeepAlive = false;
+                        //requestUpload.ReadWriteTimeout = -1;
+                        //requestUpload.Timeout = -1;
+                        //requestUpload.AllowWriteStreamBuffering = false;
+                        //requestUpload.SendChunked = false;
+                        //requestUpload.ProtocolVersion = HttpVersion.Version11;
+                        //requestUpload.ServicePoint.ConnectionLimit = 1;
+                        //requestUpload.AllowAutoRedirect = false;
+                        //requestUpload.ServicePoint.Expect100Continue = true;
+                        //requestUpload.Accept = "*/*";
                         requestUpload.ContentLength = myFile.Length;
 
-                        using (Stream tt = requestUpload.GetRequestStream())
+                        using (Stream requestStream = requestUpload.GetRequestStream())
                         {
-
-                            tt.Write(myFile, 0, myFile.Length);
-
+                            requestStream.Write(myFile, 0, myFile.Length);
                         }
 
+                        // Получить ответ
+                        using (HttpWebResponse responseUpload = (HttpWebResponse)requestUpload.GetResponse())
+                        {
+
+                            if (responseUpload.StatusCode == HttpStatusCode.Created)
+                            {
+                                MessageBox.Show("Файл загружен");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Файл не загружен");
+                            }
+
+                        }
                     }
-                    // using (HttpWebResponse response = (HttpWebResponse)requestUpload.GetResponse())
-                    // {
 
-                    //    using (Stream stream = response.GetResponseStream())
-                    //  {
-
-                    //if (stream.CanWrite)
-                    //{
-                    //    stream.Write(myFile, 0, myFile.Length);
-                    //}
-
-
-                    //}
-
-
-                    //}
-
-
-
-                    //}
                     catch (WebException e)
                     {
                         MessageBox.Show(e.Message);
                     }
 
                 }
-
 
             }
             catch (WebException e)
