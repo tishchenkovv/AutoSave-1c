@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using AutoSave_1c.Properties;
 
 namespace AutoSave_1c
 {
@@ -138,7 +139,7 @@ namespace AutoSave_1c
 
         }
 
-        public void UploadFile(string file, string patchFile)
+        public void UploadFile(string file, string patchFile, bool AutoSave)
         {
 
             string url = $"https://cloud-api.yandex.net/v1/disk/resources/upload?path={file}&overwrite=false";
@@ -202,6 +203,7 @@ namespace AutoSave_1c
                         using (Stream requestStream = requestUpload.GetRequestStream())
                         {
                             requestStream.Write(backupDatabase, 0, backupDatabase.Length);
+                            backupDatabase = null;
                         }
 
                         // Получить ответ
@@ -210,7 +212,12 @@ namespace AutoSave_1c
 
                             if (responseUpload.StatusCode == HttpStatusCode.Created)
                             {
-                                MessageBox.Show("Файл загружен");
+                                if (!AutoSave)
+                                {
+                                    MessageBox.Show("Файл загружен");
+                                }
+                                Settings.Default.LastBackup = file;
+                                Settings.Default.Save();
                             }
                             else
                             {
@@ -231,6 +238,54 @@ namespace AutoSave_1c
             catch (WebException e)
             {
                 MessageBox.Show(e.Message);
+            }
+
+        }
+
+        public static void DeleteBackupCloud(string token_yandex, bool AutoSave)
+        {
+
+            if (Settings.Default.LastBackup != string.Empty)
+            {
+
+                try
+                {
+
+                   string lastBackup           = Settings.Default.LastBackup;
+                   string url                  = $"https://cloud-api.yandex.net/v1/disk/resources?path={lastBackup}&permanently=true";
+          
+                    Settings.Default.LastBackup = string.Empty;
+                    Settings.Default.Save();
+
+                    HttpWebRequest request  = (HttpWebRequest)WebRequest.Create(url);
+                    request.Headers.Add(HttpRequestHeader.Authorization, token_yandex);
+                    request.ContentType     = "application/json";
+                    request.Method          = "DELETE";
+
+                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    {
+
+                        if (response.StatusCode == HttpStatusCode.NoContent)
+                        {
+                            if (!AutoSave)
+                            {
+                                MessageBox.Show("Старый бекап удален");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show(response.StatusCode.ToString());
+                        }
+
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+
+
             }
 
         }

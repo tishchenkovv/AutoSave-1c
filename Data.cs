@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using System.Windows.Forms;
+using AutoSave_1c.Properties;
 
 namespace AutoSave_1c
 {
@@ -61,6 +62,19 @@ namespace AutoSave_1c
 
         }
 
+        public static void Save(Data data)
+        {
+
+            Settings.Default.Login      = data.Login;
+            Settings.Default.Password   = data.Password;
+            Settings.Default.Patch      = data.Patch;
+            Settings.Default.PatchSave  = data.PatchSave;
+            Settings.Default.ID         = data.id;
+            Settings.Default.TOKEN      = data.TOKEN;
+            Settings.Default.Save();
+
+        }
+
         public static void DeleteJson()
         {
             try
@@ -72,6 +86,25 @@ namespace AutoSave_1c
             {
                 MessageBox.Show(e.Message);
             }
+        }
+
+        public static Data GetSettingDefault()
+        {
+
+            Data data = default(Data);
+
+            try
+            {
+                data = new Data(Settings.Default.Login, Settings.Default.Password, Settings.Default.Patch, Settings.Default.PatchSave, Settings.Default.ID, Settings.Default.TOKEN);
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            return data;
+
         }
 
         public static Data GetSetting()

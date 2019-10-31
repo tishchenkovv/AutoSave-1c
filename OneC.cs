@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using AutoSave_1c.Properties;
 
 namespace AutoSave_1c
 {
@@ -62,7 +63,7 @@ namespace AutoSave_1c
             return result;
         }
 
-        public void CreateBackup()
+        public void CreateBackup(bool AutoSave)
         {
 
             // определить версию 1с x32 или x64
@@ -90,7 +91,7 @@ namespace AutoSave_1c
             }
 
             var CurrentDate = DateTime.Now;
-            string NameBackup           = @"Database_" + CurrentDate.ToString("MM/dd/yyyy") + ".dt";
+            string NameBackup           = @"Database_" + CurrentDate.ToString("yyyy/MM/dd_HH_mm") + ".dt";
             string FullPatchBackup      = catalogSave +"\\" + NameBackup;
             string patchQuote           = @"" + patch + "";
             string loginQuote           = @"" + login + "";
@@ -128,9 +129,14 @@ namespace AutoSave_1c
                     continue;
                 }
 
-                this.nameFile       = NameBackup;
-                this.patchBackup    = FullPatchBackup;
-                MessageBox.Show("База успешно сохранена");
+                this.nameFile               = NameBackup;
+                this.patchBackup            = FullPatchBackup;
+
+
+                if (!AutoSave)
+                {
+                    MessageBox.Show("База успешно сохранена");
+                }
             }
             catch (Exception e)
             {

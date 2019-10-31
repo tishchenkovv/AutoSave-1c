@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using System.Threading;
+using AutoSave_1c.Properties;
 
 namespace AutoSave_1c
 {
@@ -11,10 +14,43 @@ namespace AutoSave_1c
         OneC oneC;
         Cloud_Yandex Yandex;
         Data data;
+        bool AutoSave;
 
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+  
+            string[] lineArg = Environment.GetCommandLineArgs();
+
+            int arg = (from i in lineArg where i == "/AutoSave" select i).Count();
+
+            AutoSave = arg != 0?true:false;
+
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            data = Data.GetSettingDefault();
+
+            if (data != null && data is Data)
+            {
+                txtLogin.Text       = data.Login;
+                txtPassword.Text    = data.Password;
+                txtDataBase.Text    = data.Patch;
+                txtSaveCatalog.Text = data.PatchSave;
+                txbIDYandex.Text    = data.ID;
+                txbTokenYandex.Text = data.TOKEN;
+
+                if (AutoSave)
+                {
+                    AutoSaveCloud();
+                }
+
+            }
         }
 
         private void SelectFolder_Click(object sender, EventArgs e)
@@ -138,7 +174,7 @@ namespace AutoSave_1c
                 oneC = new OneC(txtLogin.Text, txtPassword.Text, txtDataBase.Text, txtSaveCatalog.Text);
             }
 
-            oneC.CreateBackup();
+            oneC.CreateBackup(AutoSave);
 
         }
 
@@ -154,13 +190,13 @@ namespace AutoSave_1c
 
             if (Yandex != null)
             {
-                Yandex.UploadFile(oneC.NameFile,oneC.PatchBackup);
+                Yandex.UploadFile(oneC.NameFile,oneC.PatchBackup,AutoSave);
             }
             else
                 if (txbIDYandex.Text != string.Empty && txbTokenYandex.Text != string.Empty)
             {
                 Yandex = new Cloud_Yandex(txbIDYandex.Text, txbTokenYandex.Text);
-                Yandex.UploadFile(oneC.NameFile,oneC.PatchBackup);
+                Yandex.UploadFile(oneC.NameFile,oneC.PatchBackup, AutoSave);
 
             }
             else
@@ -233,21 +269,39 @@ namespace AutoSave_1c
         private void СохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Data data = new Data(txtLogin.Text, txtPassword.Text, txtDataBase.Text,txtSaveCatalog.Text, txbIDYandex.Text, txbTokenYandex.Text);
-            Data.SaveToJson(data);
+            Data.Save(data);
         }
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            data = Data.GetSetting();
 
-            if (data != null && data is Data)
+        private void СброситьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Settings.Default.Login      = "";
+            Settings.Default.Password   = "";
+            Settings.Default.Patch      = "";
+            Settings.Default.PatchSave  = "";
+            Settings.Default.ID         = "";
+            Settings.Default.TOKEN      = "";
+            Settings.Default.Save();
+
+        }
+
+        private  void  AutoSaveCloud()
+        {
+            try
             {
-                txtLogin.Text       = data.Login;
-                txtPassword.Text    = data.Password;
-                txtDataBase.Text    = data.Patch;
-                txtSaveCatalog.Text = data.PatchSave;
-                txbIDYandex.Text    = data.ID;
-                txbTokenYandex.Text = data.TOKEN;
+                Thread.Sleep(5000);
+                BtnGetProcess_Click(null, null);
+                BtnKillProces_Click(null, null);
+                Cloud_Yandex.DeleteBackupCloud(txbTokenYandex.Text.Trim(),AutoSave);
+                BtnCreateBackup_Click(null, null);
+                BtnCloudUpload_Click(null, null);
+                Environment.Exit(0);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
+       
     }
 }
