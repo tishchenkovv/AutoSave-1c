@@ -156,6 +156,7 @@ namespace AutoSave_1c
                 txtSaveCatalog.Text = fp.SelectedPath;
             }
 
+          
         }
 
         private void BtnCreateBackup_Click(object sender, EventArgs e)

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoSave 1c", "AutoSave 1c.csproj", "{DB798B53-13E4-45EE-8994-4BB56C0B81CF}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_AutoSave_1c", "..\Setup_AutoSave_1c\Setup_AutoSave_1c.vdproj", "{444B7A56-E35F-475B-801B-D6543921A20D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{DB798B53-13E4-45EE-8994-4BB56C0B81CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB798B53-13E4-45EE-8994-4BB56C0B81CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB798B53-13E4-45EE-8994-4BB56C0B81CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{444B7A56-E35F-475B-801B-D6543921A20D}.Debug|Any CPU.ActiveCfg = Debug
+		{444B7A56-E35F-475B-801B-D6543921A20D}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

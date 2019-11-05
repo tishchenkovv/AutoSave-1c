@@ -62,6 +62,7 @@
             this.txbIDYandex = new System.Windows.Forms.TextBox();
             this.lblPasswordYandex = new System.Windows.Forms.Label();
             this.lblLoginYandex = new System.Windows.Forms.Label();
+            this.lblDeveloper = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPr)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -76,7 +77,7 @@
             this.groupBox1.Controls.Add(this.dgvPr);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(644, 182);
+            this.groupBox1.Size = new System.Drawing.Size(650, 182);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Запущенные процессы 1с";
@@ -93,7 +94,7 @@
             this.dgvPr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPr.Location = new System.Drawing.Point(3, 16);
             this.dgvPr.Name = "dgvPr";
-            this.dgvPr.Size = new System.Drawing.Size(638, 163);
+            this.dgvPr.Size = new System.Drawing.Size(644, 163);
             this.dgvPr.TabIndex = 0;
             // 
             // start
@@ -131,7 +132,7 @@
             this.groupBox2.Controls.Add(this.txtLogin);
             this.groupBox2.Location = new System.Drawing.Point(12, 254);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(644, 156);
+            this.groupBox2.Size = new System.Drawing.Size(650, 156);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Авторизация 1c";
@@ -278,7 +279,7 @@
             this.настройкиToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(668, 24);
+            this.MainMenu.Size = new System.Drawing.Size(674, 24);
             this.MainMenu.TabIndex = 6;
             this.MainMenu.Text = "Главное меню";
             // 
@@ -301,7 +302,7 @@
             // сброситьToolStripMenuItem
             // 
             this.сброситьToolStripMenuItem.Name = "сброситьToolStripMenuItem";
-            this.сброситьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сброситьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.сброситьToolStripMenuItem.Text = "Сбросить";
             this.сброситьToolStripMenuItem.Click += new System.EventHandler(this.СброситьToolStripMenuItem_Click);
             // 
@@ -388,11 +389,24 @@
             this.lblLoginYandex.TabIndex = 0;
             this.lblLoginYandex.Text = "ID";
             // 
+            // lblDeveloper
+            // 
+            this.lblDeveloper.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblDeveloper.AutoSize = true;
+            this.lblDeveloper.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblDeveloper.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblDeveloper.Location = new System.Drawing.Point(577, 564);
+            this.lblDeveloper.Name = "lblDeveloper";
+            this.lblDeveloper.Size = new System.Drawing.Size(94, 13);
+            this.lblDeveloper.TabIndex = 8;
+            this.lblDeveloper.Text = "Tischenko Vitaly©";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 582);
+            this.ClientSize = new System.Drawing.Size(674, 591);
+            this.Controls.Add(this.lblDeveloper);
             this.Controls.Add(this.grbCloudYandex);
             this.Controls.Add(this.btnCloudUpload);
             this.Controls.Add(this.btnCreateBackup);
@@ -402,7 +416,11 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.MainMenu);
             this.MainMenuStrip = this.MainMenu;
+            this.MaximumSize = new System.Drawing.Size(690, 630);
+            this.MinimumSize = new System.Drawing.Size(690, 630);
             this.Name = "MainForm";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AutoSave 1c";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
@@ -455,6 +473,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCreateAppYandex;
         private System.Windows.Forms.Button btnConnectYandex;
+        private System.Windows.Forms.Label lblDeveloper;
     }
 }
 
