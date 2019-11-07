@@ -282,6 +282,7 @@ namespace AutoSave_1c
                 }
                 catch (Exception e)
                 {
+                   if(!AutoSave)
                     MessageBox.Show(e.Message);
                 }
 
